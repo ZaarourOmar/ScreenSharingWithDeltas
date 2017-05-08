@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="ScreenSharingWithDeltasProject.Browser"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ScreenSharingWithDeltasProject"
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="350" Background="#FF696969">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Grid Background="{TemplateBinding Background}" Width="{TemplateBinding Width}">
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="{TemplateBinding VerticalAlignment}"  Text="{TemplateBinding Header}" Foreground="{TemplateBinding Foreground}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Width" Value="168"/>
+            <Setter Property="Background" Value="#FF404040"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="true">
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Background" Value="#FF303030"/>
+
+                </Trigger>
+                <Trigger Property="IsSelected" Value="false">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Background" Value="#FF505050"/>
+
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="92*"/>
+        </Grid.RowDefinitions>
+        <Grid Name="TitleGrid" Grid.Row="0">
+            <TextBlock Text="Screen Browser" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="16" FontWeight="SemiBold"/>
+            <Grid Height="1" Background="White" VerticalAlignment="Bottom"/>
+        </Grid>
+
+        <Grid Name="BodyGrid" Grid.Row="1" Margin="5">
+            <TabControl Background="Transparent" HorizontalAlignment="Stretch">
+                <TabItem Name="ScreensTab" Header="Screens">
+                    <ItemsControl ItemsSource="{Binding ScreensList}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                       
+                    </ItemsControl>
+                </TabItem>
+
+                <TabItem Name="AppsTab" Header="Applications" >
+                    <ItemsControl ItemsSource="{Binding ApplicationsList}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</UserControl>
