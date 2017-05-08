@@ -38,26 +38,57 @@
         </Style>
     </UserControl.Resources>
     <Grid Name="MainGrid">
+        <!-- Divide the grid into two rows, one for the title and one for the whole body-->
         <Grid.RowDefinitions>
             <RowDefinition Height="8*"/>
             <RowDefinition Height="92*"/>
         </Grid.RowDefinitions>
+        
         <Grid Name="TitleGrid" Grid.Row="0">
-            <TextBlock Text="Screen Browser" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="16" FontWeight="SemiBold"/>
+            <!--Hold the title and a seperator grid-->
+            <TextBlock Text="Screen Browser" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Foreground="White" FontSize="16" FontWeight="SemiBold"/>
             <Grid Height="1" Background="White" VerticalAlignment="Bottom"/>
         </Grid>
 
-        <Grid Name="BodyGrid" Grid.Row="1" Margin="5">
-            <TabControl Background="Transparent" HorizontalAlignment="Stretch">
+        <Grid Name="BodyGrid" Grid.Row="1" Margin="4">
+            <TabControl Background="#FF303030" HorizontalAlignment="Stretch">
+                
                 <TabItem Name="ScreensTab" Header="Screens">
                     <ItemsControl ItemsSource="{Binding ScreensList}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <UniformGrid Columns="3"/>
+                                <!--This organizes the items in rows with 3 columns each-->
+                                <UniformGrid  Columns="3"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
-
-                       
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <RadioButton Height="100" Width="100"  IsChecked="{Binding Selected}" GroupName="Tiles" Background="Transparent" BorderThickness="0">
+                                    <RadioButton.Template>
+                                        <ControlTemplate TargetType="{x:Type RadioButton}">
+                                            <Border Name="Border" BorderBrush="Transparent" BorderThickness="2" Background="Transparent" Margin="-4">
+                                                <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}" />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="RadioButton.IsChecked" Value="True">
+                                                    <Setter TargetName="Border" Property="BorderBrush" Value="White"/>
+                                                    <Setter TargetName="Border" Property="BorderThickness" Value="2" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </RadioButton.Template>
+                                    <RadioButton.Content>
+                                        <Grid Name="SelectionMargin" Margin="4,4,4,0">
+                                            <StackPanel Height="100">
+                                                <Image Source="{Binding ImageThumbnail}" Height="80"/>
+                                                <TextBlock Height="20"  TextWrapping="NoWrap"  Foreground="White" Text="{Binding Title}" HorizontalAlignment="Left" FontSize="10" TextTrimming="CharacterEllipsis" Margin="0,2,0,0"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </RadioButton.Content>
+                                </RadioButton>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </TabItem>
 
@@ -65,9 +96,37 @@
                     <ItemsControl ItemsSource="{Binding ApplicationsList}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <UniformGrid Columns="3"/>
+                                <!--This organizes the items in rows with 3 columns each-->
+                                <UniformGrid  Columns="3"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <RadioButton Height="100" Width="100"  IsChecked="{Binding Selected}" GroupName="Tiles" Background="Transparent" BorderThickness="0">
+                                    <RadioButton.Template>
+                                        <ControlTemplate TargetType="{x:Type RadioButton}">
+                                            <Border Name="Border" BorderBrush="Transparent" BorderThickness="2" Background="Transparent" Margin="-4">
+                                                <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}" />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="RadioButton.IsChecked" Value="True">
+                                                    <Setter TargetName="Border" Property="BorderBrush" Value="White"/>
+                                                    <Setter TargetName="Border" Property="BorderThickness" Value="2" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </RadioButton.Template>
+                                    <RadioButton.Content>
+                                        <Grid Name="SelectionMargin" Margin="4,4,4,0">
+                                            <StackPanel Height="100">
+                                                <Image Source="{Binding ImageThumbnail}" Height="80"/>
+                                                <TextBlock Height="20"  TextWrapping="NoWrap"  Foreground="White" Text="{Binding Title}" HorizontalAlignment="Left" FontSize="10" TextTrimming="CharacterEllipsis" Margin="0,2,0,0"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </RadioButton.Content>
+                                </RadioButton>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </TabItem>
             </TabControl>
